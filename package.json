@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "npm install && node index.js",
-    "postinstall": "cd SelfHostedAssistant && npm install && npm run build && cd .."
+    "postinstall": "cd SelfHostedAssistant && npm install --only=dev && npm install && npm run build && cd .."
   },
   "repository": {
     "type": "git",
