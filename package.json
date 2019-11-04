@@ -9,7 +9,7 @@
     "path": "^0.12.7"
   },
   "scripts": {
-    "start": "npm install && node index.js",
+    "start": "node index.js",
     "postinstall": "cd SelfHostedAssistant && npm install --only=dev && npm install && npm run build && cd .."
   },
   "repository": {
