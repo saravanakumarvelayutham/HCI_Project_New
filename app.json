@@ -1,7 +1,7 @@
 {
   "name": "Self-Assistant",
   "description": "Self-Hosted scheduling Assistant",
-  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project",
+  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New",
   "addons": [
    "openredis",
    {
