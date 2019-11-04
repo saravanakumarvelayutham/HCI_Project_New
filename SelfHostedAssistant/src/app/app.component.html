@@ -1,0 +1,21 @@
+<div *ngIf="configLoaded">
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile [colspan]="2" [rowspan]="1" style="background: lightblue">
+        Summary
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightgreen">
+        Something
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightpink">
+          <full-calendar #calendar
+                defaultView="dayGridMonth"
+                [plugins]="calendarPlugins"
+                deepChangeDetection="true"
+                [events]="events"
+                [editable]="true"
+                (eventRender)="eventRender($event)"
+          ></full-calendar>
+      </mat-grid-tile>
+  </mat-grid-list>
+<router-outlet></router-outlet>
+</div>
