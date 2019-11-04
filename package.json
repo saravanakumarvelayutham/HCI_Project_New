@@ -1,0 +1,29 @@
+{
+  "name": "selfhostedassistant",
+  "version": "1.0.0",
+  "description": "Self-Hosted Assistant is a free, open, simple scheduling application.",
+  "main": "index.js",
+  "dependencies": {
+    "@angular/cli": "^6",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "start": "npm install && node index.js",
+    "postinstall": "cd SelfHostedAssistant && npm install && npm run build && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saravanakumarvelayutham/HCI_Project.git"
+  },
+  "engines": {
+    "node": "^10.15",
+    "npm": "^6.9"
+  },
+  "author": "Sarav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saravanakumarvelayutham/HCI_Project/issues"
+  },
+  "homepage": "https://github.com/saravanakumarvelayutham/HCI_Project#readme"
+}

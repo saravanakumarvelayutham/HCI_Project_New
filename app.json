@@ -1,0 +1,11 @@
+{
+  "name": "Self-Assistant",
+  "description": "Self-Hosted scheduling Assistant",
+  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project",
+  "addons": [
+   "openredis",
+   {
+     "plan": "mongolab:shared-single-small",
+     "as": "MONGO"
+   }
+}
