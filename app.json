@@ -4,7 +4,7 @@
   "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New",
   "addons": [
    {
-     "plan": "mongolab:shared-single-small",
+     "plan": "mongolab",
      "as": "MONGO"
    }]
 }
