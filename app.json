@@ -3,7 +3,6 @@
   "description": "Self-Hosted scheduling Assistant",
   "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New",
   "addons": [
-   "openredis",
    {
      "plan": "mongolab:shared-single-small",
      "as": "MONGO"
