@@ -9,10 +9,12 @@ import { MaterialModule } from './material-module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppConfigService, initializeApp } from './service/app-config.service';
+import { HeaderComponent } from './header/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

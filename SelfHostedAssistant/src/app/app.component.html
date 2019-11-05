@@ -1,11 +1,24 @@
+<app-header></app-header>
 <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile [colspan]="2" [rowspan]="1" style="background: lightblue">
-        Summary
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightgreen">
+        
+        <div *ngIf="forecast" class="row">
+            <!-- <p>Current Position: {{ lat }} / {{ lng }} </p> -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md">
+                        <i [class]="weatherIcon(forecast.icon)"></i>
+                        <h3>{{ forecast.time * 1000 | date: 'MMM d'  }}</h3>
+                        <p>{{ forecast.summary }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightblue">
         Something
       </mat-grid-tile>
-      <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightpink">
+      <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightblue">
           <full-calendar #calendar
                 defaultView="dayGridMonth"
                 [plugins]="calendarPlugins"

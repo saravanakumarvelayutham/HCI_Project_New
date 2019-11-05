@@ -4,6 +4,8 @@ import { Event } from './model/event';
 import { EventService } from './service/event.service';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
+import { WeatherService } from './service/weather.service';
+import { Observable } from 'rxjs';
 
 export interface Tile {
   color: string;
@@ -25,8 +27,22 @@ export class AppComponent implements OnInit, AfterViewInit{
   events: Event[];
   @ViewChild('calendar',{static: true}) calendarComponent: FullCalendarComponent;
   calendarApi: Calendar;
+  lat: number;
+  lng: number;
+  forecast: Observable<any>;
 
-  constructor(protected eventService: EventService) {
+  constructor(protected eventService: EventService,private weatherService: WeatherService) {
+    if (navigator)
+    {
+      navigator.geolocation.getCurrentPosition( pos => {
+          this.lng = +pos.coords.longitude;
+          this.lat = +pos.coords.latitude;
+          this.weatherService.getCurrentWeather(this.lat,this.lng).subscribe(weatherData => {
+            this.forecast = weatherData;
+            console.log(this.forecast)
+          });
+        });
+    }
   }
 
   ngOnInit(){
@@ -37,6 +53,19 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit(): void {
     this.calendarApi = this.calendarComponent.getApi();
+  }
+
+  weatherIcon(icon) {
+    switch (icon) {
+      case 'partly-cloudy-day':
+        return 'wi wi-day-cloudy'
+      case 'clear-day':
+        return 'wi wi-day-sunny'
+      case 'partly-cloudy-night':
+        return 'wi wi-night-partly-cloudy'
+      default:
+        return `wi wi-day-sunny`
+    }
   }
 
   eventRender(e) {
