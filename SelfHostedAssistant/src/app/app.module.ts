@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AppConfigService, initializeApp } from './service/app-config.service';
 import { HeaderComponent } from './header/header/header.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HeaderComponent } from './header/header/header.component';
     HttpClientJsonpModule,
     MaterialModule,
     ReactiveFormsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    NgxSpinnerModule
   ],
   providers: [
     AppConfigService,
