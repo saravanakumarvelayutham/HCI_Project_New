@@ -1,7 +1,7 @@
 <app-header></app-header>
 <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile [colspan]="2" [rowspan]="1" style="background: lightblue">
-        
+        <ngx-spinner></ngx-spinner>
         <div *ngIf="forecast" class="row">
             <!-- <p>Current Position: {{ lat }} / {{ lng }} </p> -->
             <div class="container">
@@ -11,12 +11,15 @@
                         <h3>{{ forecast.time * 1000 | date: 'MMM d'  }}</h3>
                         <p>{{ forecast.summary }}</p>
                     </div>
+                    <div class="col-md">
+                        Recommendation based on Weather and Map
+                    </div>
                 </div>
             </div>
         </div>
         </mat-grid-tile>
     <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightblue">
-        Something
+        Today Calendar day view
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightblue">
           <full-calendar #calendar

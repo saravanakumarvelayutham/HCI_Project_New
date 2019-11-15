@@ -6,6 +6,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import { Calendar } from '@fullcalendar/core';
 import { WeatherService } from './service/weather.service';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 export interface Tile {
   color: string;
@@ -31,15 +32,17 @@ export class AppComponent implements OnInit, AfterViewInit{
   lng: number;
   forecast: Observable<any>;
 
-  constructor(protected eventService: EventService,private weatherService: WeatherService) {
+  constructor(protected eventService: EventService,private weatherService: WeatherService, private spinner: NgxSpinnerService) {
     if (navigator)
     {
+      this.spinner.show();
       navigator.geolocation.getCurrentPosition( pos => {
           this.lng = +pos.coords.longitude;
           this.lat = +pos.coords.latitude;
           this.weatherService.getCurrentWeather(this.lat,this.lng).subscribe(weatherData => {
             this.forecast = weatherData;
-            console.log(this.forecast)
+            console.log(this.forecast);
+            this.spinner.hide();
           });
         });
     }
