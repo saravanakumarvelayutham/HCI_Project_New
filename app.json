@@ -9,7 +9,7 @@
    }],
    "buildpacks": [
    {
-     "url": "http://github.com/noliar/dotnet-buildpack.git"
+     "url": "jincod/dotnetcore"
    }
  ]
 }
