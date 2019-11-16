@@ -7,6 +7,7 @@ import { Calendar } from '@fullcalendar/core';
 import { WeatherService } from './service/weather.service';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { CalendarImportService } from './service/calendar-import.service';
 
 export interface Tile {
   color: string;
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   lng: number;
   forecast: Observable<any>;
 
-  constructor(protected eventService: EventService,private weatherService: WeatherService, private spinner: NgxSpinnerService) {
+  constructor(protected eventService: EventService,private weatherService: WeatherService, private spinner: NgxSpinnerService, private calendarUpload : CalendarImportService) {
     if (navigator)
     {
       this.spinner.show();
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, AfterViewInit{
           });
         });
     }
+    calendarUpload.uploadCalendarFile().subscribe(x=> console.log(x))
   }
 
   ngOnInit(){
