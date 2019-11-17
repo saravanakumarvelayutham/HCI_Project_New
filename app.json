@@ -1,15 +1,5 @@
 {
   "name": "Self-Assistant",
   "description": "Self-Hosted scheduling Assistant",
-  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New",
-  "addons": [
-   {
-     "plan": "mongolab",
-     "as": "MONGO"
-   }],
-   "buildpacks": [
-   {
-     "url": "jincod/dotnetcore"
-   }
- ]
+  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New"
 }
