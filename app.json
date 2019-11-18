@@ -1,5 +1,11 @@
 {
   "name": "Self-Assistant",
   "description": "Self-Hosted scheduling Assistant",
-  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New"
+  "repository": "https://github.com/saravanakumarvelayutham/HCI_Project_New",
+  "env": {
+    "API_URL": {
+      "description": "Provide the URL for API end point",
+      "value" : ""
+    }
+  }
 }
