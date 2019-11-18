@@ -18,7 +18,10 @@ export class AppConfigService {
         return new Promise<void>((resolve, reject) => {
             this.http.get(jsonFile).toPromise().then((response : IAppConfig) => {
                AppConfigService.settings = <IAppConfig>response;
- 
+               console.log(process.env.API_URL)
+               if(process.env.API_URL) {
+                AppConfigService.settings.apiServer = process.env.API_URL;
+               }
                console.log('Config Loaded');
                console.log( AppConfigService.settings);
                resolve();
