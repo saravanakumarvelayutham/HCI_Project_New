@@ -8,7 +8,6 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { MaterialModule } from './material-module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { AppConfigService, initializeApp } from './service/app-config.service';
 import { HeaderComponent } from './header/header/header.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -30,10 +29,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FullCalendarModule,
     NgxSpinnerModule
   ],
-  providers: [
-    AppConfigService,
-    { provide: APP_INITIALIZER,useFactory: initializeApp, deps: [AppConfigService], multi: true}
-  ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

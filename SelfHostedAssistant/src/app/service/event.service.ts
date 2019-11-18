@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Event } from '../model/event';
-import { AppConfigService } from './app-config.service';
+import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  protected apiServer = AppConfigService.settings.apiServer;
+  protected apiServer = environment.API_URL;
 
   constructor(private httpService: HttpClient) {
 
