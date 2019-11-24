@@ -1,9 +1,8 @@
 export class Event {
-    id : Number ;
+    id : String ;
     title: String;
-    start: String | null;
-    end: String | null;
+    rrule: any;
+    // groupId:string|null;
     extendedProps : {
-        
     }
 }

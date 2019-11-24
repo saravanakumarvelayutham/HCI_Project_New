@@ -3,7 +3,6 @@
     <mat-grid-tile [colspan]="2" [rowspan]="1" style="background: lightblue">
         <ngx-spinner></ngx-spinner>
         <div *ngIf="forecast" class="row">
-            <!-- <p>Current Position: {{ lat }} / {{ lng }} </p> -->
             <div class="container">
                 <div class="row">
                     <div class="col-md">
@@ -22,14 +21,7 @@
         Today Calendar day view
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1" [rowspan]="2" style="background: lightblue">
-          <full-calendar #calendar
-                defaultView="dayGridMonth"
-                [plugins]="calendarPlugins"
-                deepChangeDetection="true"
-                [events]="events"
-                [editable]="true"
-                (eventRender)="eventRender($event)"
-          ></full-calendar>
+        <div id="full-calendar"></div>
       </mat-grid-tile>
   </mat-grid-list>
 <router-outlet></router-outlet>
