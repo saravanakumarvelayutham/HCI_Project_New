@@ -1,0 +1,23 @@
+.event-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-container > * {
+    width: 100%;
+  }
+  
+mat-form-field{
+    width: 400px;
+}
+mat-card-title{
+    text-align: center;
+}
+
+mat-form-field {
+  padding: 0.9em;
+}
+
+mat-checkbox {
+  padding: 0.9em;
+}

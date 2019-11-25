@@ -1,0 +1,46 @@
+<div class="event-container">
+  <form class="event-container" [formGroup]="eventForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" formControlName="title" [(ngModel)]="eventData.title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="datetime-local" placeholder="Start Date" formControlName="startDate" [(ngModel)]="eventData.startDate">
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Notes" formControlName="notes" [(ngModel)]="eventData.notes"></textarea>
+    </mat-form-field>
+    
+    <mat-checkbox formControlName="recurring" [(ngModel)]="eventData.recurring" labelPosition="before">Recurring ?</mat-checkbox>
+
+    <mat-form-field *ngIf="eventData.recurring">
+      <input matInput type="number" placeholder="Repeat Every" formControlName="repeatEvery" [(ngModel)]="eventData.repeatEvery">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="eventData.recurring">
+      <mat-select placeholder="Repeat Type" formControlName="repeatType" [(ngModel)]="eventData.repeatType">
+          <mat-option *ngFor="let repeatType of repeatTypes" [value]="repeatType">
+            {{repeatType.viewValue}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="eventData.recurring">
+      <mat-select placeholder="Repeat Days" formControlName="repeatDays" [(ngModel)]="eventData.repeatDays" multiple>
+          <mat-option *ngFor="let repeatDay of repeatDays" [value]="repeatDay">
+            {{repeatDay.viewValue}}
+          </mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field *ngIf="eventData.recurring">
+        <input matInput type="datetime-local" placeholder="End Date" formControlName="endDate" [(ngModel)]="eventData.endDate">
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="add()" style="background-color: cornflowerblue;" cdkFocusInitial>Add</button>
+      <button mat-button (click)="cancel()" style="background-color: darksalmon;">Cancel</button>
+    </div>
+  </form>
+</div>
