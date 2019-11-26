@@ -11,6 +11,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { HeaderComponent } from './header/header/header.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AddeventdialogComponent } from './addeventdialog/addeventdialog.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { LocationService } from './service/location.service';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,11 @@ import { AddeventdialogComponent } from './addeventdialog/addeventdialog.compone
     AddeventdialogComponent
   ],
   imports: [
+    AgmCoreModule.forRoot({
+      apiKey: environment.MAP_API_KEY,
+      libraries: ["places"]
+    }),
+    MatGoogleMapsAutocompleteModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -30,7 +39,7 @@ import { AddeventdialogComponent } from './addeventdialog/addeventdialog.compone
     NgxSpinnerModule,
     ReactiveFormsModule,
   ],
-  providers: [ ],
+  providers: [ LocationService],
   bootstrap: [AppComponent],
   entryComponents: [AppComponent,AddeventdialogComponent],
 })

@@ -5,8 +5,10 @@ export class Event {
     color : string;
     startDate : Date;
     endDate : Date;
+    address: any;
     location: {
         latitude: number | null,
-        longitude : number | null
+        longitude : number | null,
+        address: string | null
     }
 }

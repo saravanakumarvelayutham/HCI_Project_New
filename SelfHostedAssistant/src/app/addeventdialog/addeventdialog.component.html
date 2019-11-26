@@ -38,6 +38,16 @@
       </mat-select>
     </mat-form-field>
 
+    <div class="container" fxLayout="column" fxLayoutAlign="center">       
+      <mat-google-maps-autocomplete (onLocationSelected)="onLocationSelected($event)" (onAutocompleteSelected)="onAutocompleteSelected($event)">
+      </mat-google-maps-autocomplete>
+      <div fxFlex>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+          <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map>
+      </div>
+    </div>
+
     <div mat-dialog-actions>
       <button mat-button (click)="add()" style="background-color: cornflowerblue;" cdkFocusInitial>Add</button>
       <button mat-button (click)="cancel()" style="background-color: darksalmon;">Cancel</button>

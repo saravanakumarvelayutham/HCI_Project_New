@@ -17,6 +17,8 @@ import rrulePlugin from '@fullcalendar/rrule';
 import { MatDialog } from '@angular/material';
 import { AddeventdialogComponent } from './addeventdialog/addeventdialog.component';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { LocationService } from './service/location.service';
+import { SummaryService } from './service/summary.service';
 
 export interface Tile {
   color: string;
@@ -36,40 +38,70 @@ export class AppComponent implements OnInit, AfterViewInit{
   title = 'SelHostedAssistant';
   calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin,rrulePlugin  ]; // important!
   events :Event[] = [];
-  lat: number;
-  lng: number;
   forecast: Observable<any>;
   defaultConfigurations: any;
-  @ViewChild(FullCalendarComponent, {static : false}) calendarComponent;
+  @ViewChild('calendar', {static : false}) calendarComponent;
+  @ViewChild('daycalendar', {static : false}) daycalendarComponent;
   calendarApi : Calendar;
+  daycalendarApi : Calendar;
+  lat: number;
+  lon: number;
+  nextEvent;
 
   constructor(protected eventService: EventService,private weatherService: WeatherService, private spinner: NgxSpinnerService, private calendarUpload : CalendarImportService,
-    public  dialog: MatDialog) {
-    //eventService.addEvent().subscribe();
-    if (navigator)
-    {
-      this.spinner.show();
-      navigator.geolocation.getCurrentPosition( pos => {
-          this.lng = +pos.coords.longitude;
-          this.lat = +pos.coords.latitude;
-          this.weatherService.getCurrentWeather(this.lat,this.lng).subscribe(weatherData => {
-            this.forecast = weatherData;
-            this.spinner.hide();
+    public  dialog: MatDialog,private locationService:LocationService, private summaryService: SummaryService) {
+
+  }
+
+  ngOnInit(){    
+    this.locationService.getCurrentLocation().subscribe(result => {
+      if(result.latitude != null && result.longitude != null) {
+        this.lat = result.latitude;
+        this.lon = result.longitude;
+        this.spinner.show();  
+        this.weatherService.getCurrentWeather(this.lat,this.lon).subscribe(weatherData => {
+          this.forecast = weatherData;
+          console.log(weatherData)
+          this.summaryService.getSummary().subscribe(summaryResult => {
+            this.nextEvent = summaryResult
           });
-        });
-    }   
+          this.spinner.hide();
+        });  
+      }
+       else 
+        {
+          if (navigator)
+          {
+            this.spinner.show();      
+            navigator.geolocation.getCurrentPosition( pos => {
+                this.lon = +pos.coords.longitude;
+                this.lat = +pos.coords.latitude;
+                this.locationService.setCurrentLocation(this.lat,this.lon).subscribe(()=> {});
+                this.weatherService.getCurrentWeather(this.lat,this.lon).subscribe(weatherData => {
+                  this.forecast = weatherData;
+                  console.log(weatherData)
+                  this.summaryService.getSummary().subscribe(summaryResult => {
+                    console.log(summaryResult)
+                    this.nextEvent = summaryResult
+                  });
+                  this.spinner.hide();
+                });
+              });
+          }
+        }   
+    });
+    
     this.eventService.getEvents().subscribe(eventResults =>{
       this.events = eventResults;
     });
   }
 
-  ngOnInit(){    
-  }
-
   
   ngAfterViewInit(): void {
     this.calendarApi = this.calendarComponent.getApi();
-    this.setCalendarOptions()
+    this.daycalendarApi = this.daycalendarComponent.getApi();
+    this.setCalendarOptions();
+    this.daycalendarApi.changeView('timeGridDay');
   }
  
 
@@ -95,6 +127,12 @@ export class AppComponent implements OnInit, AfterViewInit{
              left:   'title',
              right:  'addEventButton today prev,next'
            });
+    this.daycalendarApi.setOption('header', {
+      left:   '',
+      right:  ''
+    });
+    this.daycalendarApi.setOption('nowIndicator',true)
+    this.daycalendarApi.setOption('scrollTime',new Date().toLocaleTimeString())
     this.calendarApi.setOption('customButtons', {
       'addEventButton' : {
         'text' : '+',

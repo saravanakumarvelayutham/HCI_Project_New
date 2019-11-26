@@ -1,11 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, NgZone } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Event } from '../model/event';
 import RRule from 'rrule';
 import { ObjectID } from 'bson';
 import { EventService } from '../service/event.service';
 import { RandomColor } from 'angular-randomcolor';
+import { MapsAPILoader } from '@agm/core';
+import { LocationService } from '../service/location.service';
+import { } from 'googlemaps';
+import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-addeventdialog',
@@ -13,6 +18,8 @@ import { RandomColor } from 'angular-randomcolor';
   styleUrls: ['./addeventdialog.component.css']
 })
 export class AddeventdialogComponent implements OnInit {
+  
+  public appearance = Appearance;
   public eventForm : FormGroup;
   public eventData: any; 
   public repeatTypes = [
@@ -33,10 +40,21 @@ export class AddeventdialogComponent implements OnInit {
     {value : RRule.SA, viewValue: 'Saturday'},
     {value : RRule.SU, viewValue: 'Sunday'}
   ]
+  public zoom: number;
+  public latitude: number;
+  public longitude: number;
+  public selectedAddress: any;
+  addressControl = new FormControl();
 
   constructor(
     public dialogRef: MatDialogRef<AddeventdialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,private builder: FormBuilder,
-    private eventSerive: EventService) {
+    private eventSerive: EventService,  private mapsAPILoader: MapsAPILoader, private ngZone: NgZone,
+    private locationService: LocationService) {
+
+      this.locationService.getCurrentLocation().subscribe(result => {
+        this.latitude = result.latitude;
+        this.longitude = result.longitude;
+      })
       const defaultDate = this.toDatetimeLocal(new Date())
       var endDate = new Date()
       endDate.setDate(endDate.getDate() + 1)
@@ -48,9 +66,13 @@ export class AddeventdialogComponent implements OnInit {
         repeatEvery: 1,
         repeatType : this.repeatTypes[3],
         repeatDays : this.repeatDays.slice(0,5),
-        endDate : this.toDatetimeLocal(endDate)
-      };
-      console.log(this.eventData)
+        endDate : this.toDatetimeLocal(endDate),
+        location : {
+          latitude : this.latitude,
+          longitude : this.longitude
+        },
+        address: ''
+      };      
       this.eventForm = builder.group({
         title: this.eventData.title,
         startDate : this.eventData.startDate,
@@ -59,7 +81,8 @@ export class AddeventdialogComponent implements OnInit {
         repeatEvery : this.eventData.repeatEvery,
         repeatType: this.eventData.repeatType,
         repeatDays : this.eventData.repeatDays,
-        endDate : this.eventData.endDate
+        endDate : this.eventData.endDate,
+        addressControl : this.eventData.address
       })
     }
 
@@ -90,8 +113,9 @@ export class AddeventdialogComponent implements OnInit {
     newEvent.endDate = this.eventData.endDate;
     newEvent.color = RandomColor.generateColor();
     newEvent.location = {
-      latitude : 24.56,
-      longitude: 54.26
+      latitude : this.latitude,
+      longitude: this.longitude,
+      address: this.selectedAddress
     }
     this.eventSerive.addEvent(newEvent).subscribe(result=> {
       this.data.events = this.data.events.concat(newEvent);
@@ -99,7 +123,18 @@ export class AddeventdialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    this.zoom = 10;
+    this.locationService.getCurrentLocation();
+  }
+
+  onLocationSelected(location: Location) {
+    this.latitude = location.latitude;
+    this.longitude = location.longitude;
+  }
+
+  onAutocompleteSelected(result: PlaceResult) {
+    this.selectedAddress = result['formatted_address'];
   }
 
   cancel():void {
