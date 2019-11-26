@@ -6,6 +6,10 @@
     "API_URL": {
       "description": "Provide the URL for API end point",
       "value" : ""
+    },
+     "MAP_API_KEY": {
+      "description": "Provide the API key for google maps platform",
+      "value" : ""
     }
   }
 }
