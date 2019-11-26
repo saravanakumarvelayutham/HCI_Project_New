@@ -12,6 +12,10 @@
       <textarea matInput placeholder="Notes" formControlName="notes" [(ngModel)]="eventData.notes"></textarea>
     </mat-form-field>
     
+    <mat-form-field>
+      <input matInput type="datetime-local" placeholder="End Date" formControlName="endDate" [(ngModel)]="eventData.endDate">
+    </mat-form-field>
+    
     <mat-checkbox formControlName="recurring" [(ngModel)]="eventData.recurring" labelPosition="before">Recurring ?</mat-checkbox>
 
     <mat-form-field *ngIf="eventData.recurring">
@@ -32,10 +36,6 @@
             {{repeatDay.viewValue}}
           </mat-option>
       </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field *ngIf="eventData.recurring">
-        <input matInput type="datetime-local" placeholder="End Date" formControlName="endDate" [(ngModel)]="eventData.endDate">
     </mat-form-field>
 
     <div mat-dialog-actions>

@@ -2,7 +2,11 @@ export class Event {
     id : String ;
     title: String;
     rrule: any;
-    // groupId:string|null;
-    extendedProps : {
+    color : string;
+    startDate : Date;
+    endDate : Date;
+    location: {
+        latitude: number | null,
+        longitude : number | null
     }
 }

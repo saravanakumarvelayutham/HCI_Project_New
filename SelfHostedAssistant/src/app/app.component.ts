@@ -32,12 +32,6 @@ export interface Tile {
 })
 export class AppComponent implements OnInit, AfterViewInit{
 
-  ngAfterViewInit(): void {
-    this.calendarApi = this.calendarComponent.getApi();
-    console.log('after view')
-    this.setCalendarOptions()
-  }
- 
   configLoaded = true;
   title = 'SelHostedAssistant';
   calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin,rrulePlugin  ]; // important!
@@ -67,11 +61,17 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.eventService.getEvents().subscribe(eventResults =>{
       this.events = eventResults;
     });
-    console.log('constructor')
   }
 
   ngOnInit(){    
   }
+
+  
+  ngAfterViewInit(): void {
+    this.calendarApi = this.calendarComponent.getApi();
+    this.setCalendarOptions()
+  }
+ 
 
   weatherIcon(icon) {
     switch (icon) {
@@ -87,7 +87,10 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   setCalendarOptions() {
-    const dialog = this.dialog;
+    let dialog = this.dialog;
+    let dialogRef;
+    let calendarapi = this.calendarApi;
+    let events = this.events;
     this.calendarApi.setOption('header', {
              left:   'title',
              right:  'addEventButton today prev,next'
@@ -96,14 +99,18 @@ export class AppComponent implements OnInit, AfterViewInit{
       'addEventButton' : {
         'text' : '+',
         'click' : function() {
-          const dialogRef = dialog.open(AddeventdialogComponent, {
+          dialogRef = dialog.open(AddeventdialogComponent, {
             width: '500px',
-            data: {events: this.events},
+            data: {events: events},
             disableClose : true
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            calendarapi.refetchEvents();
           });
         }
       }
     })
+    
   }
 
 }

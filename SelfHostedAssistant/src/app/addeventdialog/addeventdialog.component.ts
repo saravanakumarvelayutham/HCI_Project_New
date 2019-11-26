@@ -5,6 +5,7 @@ import { Event } from '../model/event';
 import RRule from 'rrule';
 import { ObjectID } from 'bson';
 import { EventService } from '../service/event.service';
+import { RandomColor } from 'angular-randomcolor';
 
 @Component({
   selector: 'app-addeventdialog',
@@ -79,11 +80,22 @@ export class AddeventdialogComponent implements OnInit {
       rule = new RRule({
         freq: this.eventData.repeatEvery.value,
         interval: 1,
-        dtstart: new Date(this.eventData.startDate)
+        count: 1,
+        dtstart: new Date(this.eventData.startDate),
+        until: new Date(this.eventData.endDate)
       })
     }
     newEvent.rrule = rule.toString()
-    this.eventSerive.addEvent(newEvent).subscribe();
+    newEvent.startDate = this.eventData.startDate;
+    newEvent.endDate = this.eventData.endDate;
+    newEvent.color = RandomColor.generateColor();
+    newEvent.location = {
+      latitude : 24.56,
+      longitude: 54.26
+    }
+    this.eventSerive.addEvent(newEvent).subscribe(result=> {
+      this.data.events = this.data.events.concat(newEvent);
+    });
     this.dialogRef.close();
   }
 
