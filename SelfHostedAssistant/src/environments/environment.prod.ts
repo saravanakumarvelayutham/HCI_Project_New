@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  API_URL: $ENV.API_URL
+  API_URL: $ENV.API_URL,
+  MAP_API_KEY : ''
 };
