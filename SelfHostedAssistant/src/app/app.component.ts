@@ -90,10 +90,7 @@ export class AppComponent implements OnInit, AfterViewInit{
           }
         }   
     });
-    
-    this.eventService.getEvents().subscribe(eventResults =>{
-      this.events = eventResults;
-    });
+    this.refreshEvents(this.eventService,this)        
   }
 
   
@@ -119,10 +116,13 @@ export class AppComponent implements OnInit, AfterViewInit{
   }
 
   setCalendarOptions() {
+
     let dialog = this.dialog;
     let dialogRef;
-    let calendarapi = this.calendarApi;
+    let angularComponent = this;
     let events = this.events;
+    let eventRefresh = this.refreshEvents;
+    let eventService = this.eventService;
     this.calendarApi.setOption('header', {
              left:   'title',
              right:  'addEventButton today prev,next'
@@ -131,6 +131,8 @@ export class AppComponent implements OnInit, AfterViewInit{
       left:   '',
       right:  ''
     });
+    this.calendarApi.setOption('timeZone','local');
+    this.daycalendarApi.setOption('timeZone','local');
     this.daycalendarApi.setOption('nowIndicator',true)
     this.daycalendarApi.setOption('scrollTime',new Date().toLocaleTimeString())
     this.calendarApi.setOption('customButtons', {
@@ -143,12 +145,18 @@ export class AppComponent implements OnInit, AfterViewInit{
             disableClose : true
           });
           dialogRef.afterClosed().subscribe(result => {
-            calendarapi.refetchEvents();
+            eventRefresh(eventService,angularComponent)
           });
         }
       }
     })
     
+  }
+
+  refreshEvents(eventService,angularComponent) {
+    eventService.getEvents().subscribe(eventResults =>{
+      angularComponent.events = eventResults;
+    });
   }
 
 }

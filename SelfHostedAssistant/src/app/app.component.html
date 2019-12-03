@@ -12,7 +12,12 @@
                         <p>{{ forecast.summary }}</p>
                     </div>
                     <div class="col-md"  *ngIf="nextEvent">
+                        <div>
+                        Next Event : {{nextEvent.nextEvent.title}}
+                        </div>
+                        <div>
                         {{ nextEvent.summary }}
+                    </div>
                     </div>
                 </div>
             </div>

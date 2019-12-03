@@ -91,11 +91,13 @@ export class AddeventdialogComponent implements OnInit {
     newEvent.id = new ObjectID();
     newEvent.title = this.eventData.title;
     let rule: RRule;
+    let startDate = new Date(this.eventData.startDate);
     if(this.eventData.recurring) {
       rule = new RRule({
         freq: this.eventData.repeatEvery.value,
         interval: this.eventData.repeatEvery,
-        dtstart: new Date(this.eventData.startDate),
+        dtstart:new Date(Date.UTC(startDate.getUTCFullYear(),startDate.getUTCMonth(),startDate.getUTCDate(),startDate.getUTCHours(),startDate.getUTCMinutes(),
+        startDate.getUTCSeconds(),startDate.getUTCMilliseconds())),
         until: new Date(this.eventData.endDate),
         byweekday: this.eventData.repeatDays.map(repeateDay => repeateDay.value)
       })
@@ -104,7 +106,8 @@ export class AddeventdialogComponent implements OnInit {
         freq: this.eventData.repeatEvery.value,
         interval: 1,
         count: 1,
-        dtstart: new Date(this.eventData.startDate),
+        dtstart: new Date(Date.UTC(startDate.getUTCFullYear(),startDate.getUTCMonth(),startDate.getUTCDate(),startDate.getUTCHours(),startDate.getUTCMinutes(),
+        startDate.getUTCSeconds(),startDate.getUTCMilliseconds())),
         until: new Date(this.eventData.endDate)
       })
     }
