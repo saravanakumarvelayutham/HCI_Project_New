@@ -19,6 +19,7 @@ import { AddeventdialogComponent } from './addeventdialog/addeventdialog.compone
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { LocationService } from './service/location.service';
 import { SummaryService } from './service/summary.service';
+import RRule, { rrulestr } from 'rrule';
 
 export interface Tile {
   color: string;
@@ -155,8 +156,8 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   refreshEvents(eventService,angularComponent) {
     eventService.getEvents().subscribe(eventResults =>{
-      angularComponent.events = eventResults;
-    });
+      angularComponent.events = eventResults
+    })
   }
 
 }

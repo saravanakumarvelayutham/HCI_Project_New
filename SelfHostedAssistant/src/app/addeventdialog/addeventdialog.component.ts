@@ -96,8 +96,8 @@ export class AddeventdialogComponent implements OnInit {
       rule = new RRule({
         freq: this.eventData.repeatEvery.value,
         interval: this.eventData.repeatEvery,
-        dtstart:new Date(Date.UTC(startDate.getUTCFullYear(),startDate.getUTCMonth(),startDate.getUTCDate(),startDate.getUTCHours(),startDate.getUTCMinutes(),
-        startDate.getUTCSeconds(),startDate.getUTCMilliseconds())),
+        dtstart:new Date(Date.UTC(startDate.getFullYear(),startDate.getMonth(),startDate.getDate(),startDate.getHours(),startDate.getMinutes(),
+        startDate.getSeconds(),startDate.getMilliseconds())),
         until: new Date(this.eventData.endDate),
         byweekday: this.eventData.repeatDays.map(repeateDay => repeateDay.value)
       })
@@ -106,8 +106,8 @@ export class AddeventdialogComponent implements OnInit {
         freq: this.eventData.repeatEvery.value,
         interval: 1,
         count: 1,
-        dtstart: new Date(Date.UTC(startDate.getUTCFullYear(),startDate.getUTCMonth(),startDate.getUTCDate(),startDate.getUTCHours(),startDate.getUTCMinutes(),
-        startDate.getUTCSeconds(),startDate.getUTCMilliseconds())),
+        dtstart:new Date(Date.UTC(startDate.getFullYear(),startDate.getMonth(),startDate.getDate(),startDate.getHours(),startDate.getMinutes(),
+        startDate.getSeconds(),startDate.getMilliseconds())),
         until: new Date(this.eventData.endDate)
       })
     }
