@@ -13,7 +13,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
-    "@angular-devkit/build-angular": "^0.803.19",
+    "@angular-devkit/build-angular": "^15.0.0",
     "@angular-material-extensions/google-maps-autocomplete": "^2.0.0",
     "@angular/animations": "^8.2.14",
     "@angular/cdk": "^8.2.3",
