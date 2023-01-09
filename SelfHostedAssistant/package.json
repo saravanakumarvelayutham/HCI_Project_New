@@ -43,7 +43,7 @@
     "moment-timezone": "^0.5.27",
     "momentum": "^4.0.0",
     "ngx-spinner": "^8.0.3",
-    "rrule": "^2.6.3",
+    "rrule": "^2.7.1",
     "rxjs": "~6.5.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
